@@ -20,9 +20,9 @@ namespace EnDe
                     var allFiles = GetCurrentDirectoryEncryptedFiles();
                     foreach (var file in allFiles)
                     {
+                        Console.WriteLine("Decrypting file:" + Path.GetFileName(file));
                         var key = GetKeyFromUser();
                         var decryptedFile = Path.ChangeExtension(file, Path.GetExtension(file).Replace("ende", ""));
-
                         try
                         {
                             FileCryptoService.DecryptFile(file, decryptedFile, key);
@@ -34,19 +34,19 @@ namespace EnDe
                         }
                     }
                 }
+                //Encryption 
                 else if (args.Length > 0 && (args[0].ToUpper() == "E" || args[0].ToUpper() == "ENCRYPT"))
                 {
                     var filePath = GetFilePath(args);
-
                     var key = GetKeyFromUser();
                     var encryptedFile = Path.ChangeExtension(filePath, Path.GetExtension(filePath) + "ende");
                     FileCryptoService.EncryptFile(filePath, encryptedFile, key);
                 }
+                //Decryption
                 else if (args.Length > 0 && (args[0].ToUpper() == "D" || args[0].ToUpper() == "DECRYPT"))
                 {
                     string filePath = GetFilePath(args);
                     var key = GetKeyFromUser();
-
                     var decryptedFile = Path.ChangeExtension(filePath, Path.GetExtension(filePath).Replace("ende", ""));
                     try
                     {
@@ -60,7 +60,6 @@ namespace EnDe
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine("Exception Occured:" + ex.Message);
             }
             Console.ReadLine();
